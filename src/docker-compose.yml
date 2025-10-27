@@ -1,0 +1,27 @@
+services:
+  api_contacorrente:
+    image: edimilsonnascimento/backcontacorrente:1.0.2
+    ports:
+      - "3006:3000"
+    environment:
+      - DB_USER=COMAL
+      - DB_PASSWORD=COMAL
+      - DB_CONNECT_STRING=SRVORACLE:1521/WINT
+      - PORT=3006
+    networks:
+      - my-contacorrente
+    restart: always  
+
+  front_contacorrente:
+    image: edimilsonnascimento/frontcontacorrente:1.0.1
+    ports:
+      - "3007:3000"      # expõe, por exemplo, porta 3007 do host para 3000 do container front
+    networks:
+      - my-contacorrente
+    restart: always
+    environment: 
+     - PORT=3007
+
+networks:
+  my-contacorrente:
+    external: true
